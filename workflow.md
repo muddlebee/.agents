@@ -5,6 +5,7 @@ This is a full workflow from idea → shipped code → written-down context. Eac
 
 
 
+
 ## Agent Instruction Files (Cross-Tool)
 
 Standard instruction files committed to the repo root. Every major agent runtime reads at least one — same conventions apply whether you're on Cursor, Claude Code, or Codex.
@@ -21,6 +22,17 @@ Standard instruction files committed to the repo root. Every major agent runtime
 | `test-results/` | Test results | e2e testing agent (See step 8) |
 
 For language or framework-specific conventions (React, Next.js, Python, etc.), find and install the relevant community skill from [skills.sh](https://skills.sh/) and reference it in your instruction files alongside the core agent skills.
+
+
+
+## MCP servers (tooling bridge).
+
+| Server | Role | Pipeline steps |
+|---|---|---|
+| [GitHub MCP](https://github.com/github/github-mcp-server) | Branches, PRs, issues, labels, PR comments (e.g. preview URL, E2E report) | 4, 7, 8 |
+| [Playwright MCP](https://github.com/microsoft/playwright-mcp) | Drive the browser for real flows (pre-commit QA loop on local/preview, full E2E on staging) | 3, 8 |
+| [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools) | Console, network, runtime inspection on a live page | 8, 9 |
+| **Custom / vendor** | Whatever your repo needs (e.g. Vercel, DB, Slack, company tools) | Where relevant |
 
 
 
@@ -62,10 +74,11 @@ Idea → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Le
 ### 3) Self-Review (Pre-Commit Gate)
 **Agent: Reviewer**
 - Runs a review pass before anything is staged — CI should never catch what this misses
+- For UI-facing work: **Playwright QA loop** on local or preview ([Playwright MCP](https://github.com/microsoft/playwright-mcp); details in `playwright-interactive` below) — inventory from spec + shipped behavior + PR claims; functional then visual pass; one persistent session; proof or documented gaps before commit
 
 **Skills used:**
+- [`playwright-interactive`](https://github.com/openai/skills/blob/main/skills/.curated/playwright-interactive/SKILL.md) — persistent Playwright, inventory → functional + visual QA
 - [`code-review-and-quality`](https://skills.sh/addyosmani/agent-skills/code-review-and-quality) — correctness, readability, security, perf, spec alignment
-- [`code-simplification`](https://skills.sh/addyosmani/agent-skills/code-simplification) — reduce complexity, remove dead weight
 - [`security-and-hardening`](https://skills.sh/addyosmani/agent-skills/security-and-hardening) — OWASP basics, input validation, no secrets in code
 - [`performance-optimization`](https://skills.sh/addyosmani/agent-skills/performance-optimization) — bundle size, render cost, measure-first
 
