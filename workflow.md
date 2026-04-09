@@ -10,8 +10,6 @@ Standard instruction files committed to the repo root. Every major agent runtime
 | Path | Purpose |
 |---|---|
 | `AGENTS.md` | Top-level agent behavior, goals, boundaries |
-| `.cursorrules` | Cursor-specific coding conventions |
-| `.github/copilot-instructions.md` | GitHub Copilot workspace instructions |
 | `SPEC.md` | Feature spec, acceptance criteria, tasks |
 | `.github/workflows/` | CI/CD pipeline definitions |
 | `.skills/` | Skills installed via [skills.sh](https://skills.sh/) |
@@ -171,7 +169,7 @@ Idea → Design → Spec → Code → Review → PR/Issues → CI/CD → E2E + d
 
 
 ## Key Design Choices
-- **Standard instruction files** - `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `copilot-instructions.md` mean any agent runtime picks up the same conventions without re-prompting
+- **Standard instruction files** - `AGENTS.md` at the repo root so any agent runtime picks up the same conventions without re-prompting
 - **Skill-driven** - each step maps to a proven engineering workflow, not a one-off prompt
 - **Small agents > one big agent** - each phase has a clear input, output, and failure mode
 - **Structured outputs everywhere** - validated contracts at every boundary
