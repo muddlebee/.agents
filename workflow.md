@@ -3,7 +3,7 @@
 This is a full workflow from idea → shipped code → written-down context. Each stage uses a small, focused assistant plus reusable playbooks ([agent-skills](https://skills.sh/addyosmani/agent-skills), [awesome-copilot](https://github.com/github/awesome-copilot)). The same setup works in [Cursor](https://www.cursor.com/), [Claude Code](https://claude.ai/code), [Codex](https://platform.openai.com/docs/guides/codex), or anything that reads the repo’s instruction files.
 
 
----
+
 
 ## Agent Instruction Files (Cross-Tool)
 
@@ -22,7 +22,7 @@ Standard instruction files committed to the repo root. Every major agent runtime
 
 For language or framework-specific conventions (React, Next.js, Python, etc.), find and install the relevant community skill from [skills.sh](https://skills.sh/) and reference it in your instruction files alongside the core agent skills.
 
----
+
 
 ## The Pipeline
 
@@ -31,7 +31,7 @@ Idea → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Le
 
 ```
 
----
+
 
 ### 1) Define + Plan
 **Agent: Planner**
@@ -44,7 +44,7 @@ Idea → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Le
 - [`documentation-and-adrs`](https://skills.sh/addyosmani/agent-skills/documentation-and-adrs) — log architecture decisions inline at decision time
 - [`context-engineering`](https://skills.sh/addyosmani/agent-skills/context-engineering) — structure context so downstream agents stay coherent
 
----
+
 
 ### 2) Build
 **Agent: Builder**
@@ -57,7 +57,7 @@ Idea → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Le
 - [`frontend-ui-engineering`](https://skills.sh/addyosmani/agent-skills/frontend-ui-engineering) — clean component patterns, accessibility baked in
 - Framework/language skill from [skills.sh](https://skills.sh/) — find the relevant one for your stack and reference it in `AGENTS.md`
 
----
+
 
 ### 3) Self-Review (Pre-Commit Gate)
 **Agent: Reviewer**
@@ -69,7 +69,7 @@ Idea → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Le
 - [`security-and-hardening`](https://skills.sh/addyosmani/agent-skills/security-and-hardening) — OWASP basics, input validation, no secrets in code
 - [`performance-optimization`](https://skills.sh/addyosmani/agent-skills/performance-optimization) — bundle size, render cost, measure-first
 
----
+
 
 ### 4) PR Creation
 **Agent: PR Writer** ([GitHub MCP](https://github.com/github/github-mcp-server) + [awesome-copilot](https://github.com/github/awesome-copilot))
@@ -82,7 +82,7 @@ Idea → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Le
 
 **Issue resolution flow:** agent reads open issue via GitHub MCP → generates fix branch → implements fix → opens PR with `fixes #N`
 
----
+
 
 ### 5) PR Review Loop
 **Agent: PR Reviewer** (AI + CI)
@@ -94,7 +94,7 @@ Idea → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Le
 - [`debugging-and-error-recovery`](https://skills.sh/addyosmani/agent-skills/debugging-and-error-recovery) — flags risky changes, suggests patches
 - [awesome-copilot PR reviewer agent](https://github.com/github/awesome-copilot/tree/main/agents) — GitHub-native review comments
 
----
+
 
 ### 6) CI/CD
 **Pipeline: [GitHub Actions](https://github.com/features/actions) + [Vercel](https://vercel.com/)**
@@ -111,7 +111,7 @@ Idea → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Le
 
 On failure: agent reads Actions log → diagnoses root cause → pushes patch commit
 
----
+
 
 ### 7) Deploy
 **Pipeline: [Vercel](https://vercel.com/)**
@@ -122,7 +122,7 @@ On failure: agent reads Actions log → diagnoses root cause → pushes patch co
 - [`shipping-and-launch`](https://skills.sh/addyosmani/agent-skills/shipping-and-launch) validates env vars + hits health endpoint post-deploy
 - Failed health check → automatic rollback via [Vercel REST API](https://vercel.com/docs/rest-api)
 
----
+
 
 ### 8) E2E Testing
 **Agent: Runner** ([Playwright MCP](https://github.com/microsoft/playwright-mcp) + [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools))
@@ -134,7 +134,7 @@ On failure: agent reads Actions log → diagnoses root cause → pushes patch co
 
 **Output:** Structured test report posted back to PR as a review comment via GitHub MCP. Loop closes — acceptance criteria written in step 1, verified here.
 
----
+
 
 ### 9) Debugging + Failure Handling
 **Agent: Debugger**
@@ -144,7 +144,7 @@ On failure: agent reads Actions log → diagnoses root cause → pushes patch co
 - [`debugging-and-error-recovery`](https://skills.sh/addyosmani/agent-skills/debugging-and-error-recovery) — reproduce → isolate → hypothesize → fix → verify
 - Chrome DevTools MCP — live console + network inspection on the running preview
 
----
+
 
 ### 10) Learning Loop
 **Agent: Feedback**
@@ -159,7 +159,7 @@ On failure: agent reads Actions log → diagnoses root cause → pushes patch co
 - Flaky test → converted to a pinned regression test
 - Failed prompt → refined and versioned in `.github/copilot-instructions.md`
 
----
+
 
 ### 11) Document
 **Agent: Documenter**
@@ -183,7 +183,7 @@ Agents have no persistent memory across sessions. Without documented context, ev
 
 **Agent maintenance:** Inspired by [Karpathy's LLM Wiki](https://gist.github.com/karpathy/b552e21f2a9a452a50b99a7dc7ce8bb0) pattern — raw sources drop into `docs/raw/` (immutable), the agent processes them into wiki pages (never hand-written), and `AGENTS.md` encodes the rules for how pages are created, linked, and superseded. Knowledge compounds across sessions instead of resetting.
 
----
+
 
 ## Key Design Choices
 - **Standard instruction files** — `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `copilot-instructions.md` mean any agent runtime picks up the same conventions without re-prompting
