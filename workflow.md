@@ -3,23 +3,20 @@
 This is a full workflow from idea → shipped code → written-down context. Each stage uses a small, focused assistant plus reusable playbooks ([agent-skills](https://skills.sh/addyosmani/agent-skills), [awesome-copilot](https://github.com/github/awesome-copilot)). The same setup works in [Cursor](https://www.cursor.com/), [Claude Code](https://claude.ai/code), [Codex](https://platform.openai.com/docs/guides/codex), or anything that reads the repo’s instruction files.
 
 
-
-
-
-## Agent Instruction Files (Cross-Tool)
+## Core repository structure + Agent configuration
 
 Standard instruction files committed to the repo root. Every major agent runtime reads at least one - same conventions apply whether you're on Cursor, Claude Code, or Codex.
 
-| Path | Purpose | Read by |
-|---|---|---|
-| `AGENTS.md` | Top-level agent behavior, goals, boundaries | Claude Code, Codex, any agent |
-| `.cursorrules` | Cursor-specific coding conventions | Cursor |
-| `.github/copilot-instructions.md` | GitHub Copilot workspace instructions | Copilot, awesome-copilot agents |
-| `SPEC.md` | Feature spec, acceptance criteria, tasks | All agents (read before coding) |
-| `.github/workflows/` | CI/CD pipeline definitions | GitHub Actions |
-| `.skills/` | Skills installed via [skills.sh](https://skills.sh/) | Agents (per CLI / tool layout) |
-| `docs/` | Raw sources + wiki (long-lived context) | All agents (see step 12) |
-| `test-results/` | Test results | e2e testing agent (See step 9) |
+| Path | Purpose |
+|---|---|
+| `AGENTS.md` | Top-level agent behavior, goals, boundaries |
+| `.cursorrules` | Cursor-specific coding conventions |
+| `.github/copilot-instructions.md` | GitHub Copilot workspace instructions |
+| `SPEC.md` | Feature spec, acceptance criteria, tasks |
+| `.github/workflows/` | CI/CD pipeline definitions |
+| `.skills/` | Skills installed via [skills.sh](https://skills.sh/) |
+| `docs/` | Raw sources + wiki (long-lived context) |
+| `test-results/` | Test results |
 
 For language or framework-specific conventions (React, Next.js, Python, etc.), find and install the relevant community skill from [skills.sh](https://skills.sh/) and reference it in your instruction files alongside the core agent skills.
 
@@ -27,23 +24,20 @@ For language or framework-specific conventions (React, Next.js, Python, etc.), f
 
 ## MCP servers (tooling bridge).
 
-| Server | Role | Pipeline steps |
-|---|---|---|
-| [GitHub MCP](https://github.com/github/github-mcp-server) | Branches, PRs, issues, labels, PR comments (e.g. preview URL, E2E report) | 5, 8, 9 |
-| [Playwright MCP](https://github.com/microsoft/playwright-mcp) | Drive the browser for real flows (pre-commit QA loop on local/preview, full E2E on staging) | 4, 9 |
-| [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools) | Console, network, runtime inspection on a live page | 9, 10 |
-| **Custom / vendor** | Whatever your repo needs (e.g. Vercel, DB, Slack, company tools) | Where relevant |
-
+| Server | Role |
+|---|---|
+| [GitHub MCP](https://github.com/github/github-mcp-server) | Branches, PRs, issues, labels, PR comments (e.g. preview URL, E2E report) |
+| [Playwright MCP](https://github.com/microsoft/playwright-mcp) | Drive the browser for real flows (pre-commit QA loop on local/preview, full E2E on staging) |
+| [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools) | Console, network, runtime inspection on a live page |
+| **Custom / vendor** | Whatever your repo needs (e.g. Vercel, DB, Slack, company tools) |
 
 
 ## The Pipeline
 
 ```
-Idea → Design → Spec → Code → Review → PR/Issues → CI → Deploy → E2E → Learn → Document
+Idea → Design → Spec → Code → Review → PR/Issues → CI/CD → E2E + debugging → Document/Wiki
 
 ```
-
-
 
 ### 1) Design
 **Agent: Designer**
@@ -131,35 +125,17 @@ Idea → Design → Spec → Code → Review → PR/Issues → CI → Deploy →
 
 
 
-### 7) CI/CD
-**Pipeline: [GitHub Actions](https://github.com/features/actions) + [Vercel](https://vercel.com/)**
-- Three stages sequential - each must pass before the next runs
+### 7) CI/CD + deploy
+**Pipeline: [GitHub Actions](https://github.com/features/actions) + [Vercel](https://vercel.com/)**. 
 
 **Skills used:**
-- [`ci-cd-and-automation`](https://skills.sh/addyosmani/agent-skills/ci-cd-and-automation) - workflow authored and maintained by the skill
-- [`shipping-and-launch`](https://skills.sh/addyosmani/agent-skills/shipping-and-launch) - env var validation, health check, rollback trigger
-
-**Stages:**
-- **Quality** - lint + typecheck + build
-- **Test** - unit + integration
-- **Preview smoke** - Playwright against `$VERCEL_PREVIEW_URL`
-
-On failure: agent reads Actions log → diagnoses root cause → pushes patch commit
+- [`ci-cd-and-automation`](https://skills.sh/addyosmani/agent-skills/ci-cd-and-automation) — author and maintain workflows, caches, and log-driven fixes
+- [`deploy-to-vercel`](https://skills.sh/vercel-labs/agent-skills/deploy-to-vercel) — linked projects, preview vs production, git-push vs CLI deploy
+- [awesome-copilot `create-github-action-workflow-specification`](https://github.com/github/awesome-copilot/blob/main/skills/create-github-action-workflow-specification/SKILL.md) — formal spec for an existing Actions workflow (good for AI maintenance and onboarding)
 
 
 
-### 8) Deploy
-**Pipeline: [Vercel](https://vercel.com/)**
-- Preview on every PR branch · Production on merge to main
-
-**How it works:**
-- Agent posts preview URL to PR thread via GitHub MCP after build completes
-- [`shipping-and-launch`](https://skills.sh/addyosmani/agent-skills/shipping-and-launch) validates env vars + hits health endpoint post-deploy
-- Failed health check → automatic rollback via [Vercel REST API](https://vercel.com/docs/rest-api)
-
-
-
-### 9) E2E Testing
+### 8) E2E Testing
 **Agent: Runner** ([Playwright MCP](https://github.com/microsoft/playwright-mcp) + [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools))
 - Executes real user flows on live preview · captures traces, logs, screenshots
 
@@ -171,7 +147,7 @@ On failure: agent reads Actions log → diagnoses root cause → pushes patch co
 
 
 
-### 10) Debugging + Failure Handling
+### 9) Debugging + Failure Handling
 **Agent: Debugger**
 - Investigates CI failures, test regressions, deploy issues autonomously
 
@@ -181,32 +157,16 @@ On failure: agent reads Actions log → diagnoses root cause → pushes patch co
 
 
 
-### 11) Learning Loop
-**Agent: Feedback**
-- Converts failures → regression tests · updates agent instruction files
+### 10) Document / Wiki
+**Agents: Feedback + Documenter** — same job from two angles: **turn what just happened into durable memory** so the next session does not rediscover or undo it. Agents have no cross-session memory; the repo (`AGENTS.md`, wiki, ADRs) is the substitute.
 
 **Skills used:**
-- [`context-engineering`](https://skills.sh/addyosmani/agent-skills/context-engineering) - better context = better agent outputs over time
-
-**What gets updated after every incident:**
-- New rule added to `AGENTS.md` / `.cursorrules`
-- New schema tightening at the failure boundary
-- Flaky test → converted to a pinned regression test
-- Failed prompt → refined and versioned in `.github/copilot-instructions.md`
-
-
-
-### 12) Document
-**Agent: Documenter**
-- Agents have no memory across sessions - the wiki is their long-term memory. Without it, every session rediscovers the same decisions and risks undoing deliberate choices.
-
-**Skills used:**
+- [`context-engineering`](https://skills.sh/addyosmani/agent-skills/context-engineering) - structure updates so future agents load signal, not noise
 - [`documentation-and-adrs`](https://skills.sh/addyosmani/agent-skills/documentation-and-adrs) - decisions, options rejected, reversal cost
-- [`context-engineering`](https://skills.sh/addyosmani/agent-skills/context-engineering) - structure knowledge so future agents load the right context without noise
 
-**What gets documented** (lives in `docs/wiki/`): specs + drift · ADRs · incident post-mortems · stable patterns · skills/MCP reference
+**Long-form capture** (lives in `docs/wiki/`): specs + drift · ADRs · incident post-mortems · stable patterns · skills/MCP reference
 
-**Maintenance model:** Inspired by [Karpathy's LLM Wiki](https://gist.github.com/karpathy/b552e21f2a9a452a50b99a7dc7ce8bb0) - raw sources in `docs/raw/` (immutable), agent processes them into wiki pages, rules encoded in `AGENTS.md`. Knowledge compounds instead of resetting.
+**Maintenance model:** Inspired by [Karpathy's LLM Wiki](https://gist.github.com/karpathy/b552e21f2a9a452a50b99a7dc7ce8bb0) — raw sources in `docs/raw/` (immutable), agent processes them into wiki pages; standing rules stay in `AGENTS.md`. Knowledge compounds instead of resetting.
 
 
 
