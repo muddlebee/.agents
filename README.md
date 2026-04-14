@@ -44,10 +44,8 @@ Idea → Design → Spec → Code → Review → PR/Issues → CI/CD → E2E + d
 
 **Tools used:**
 - [Superdesign](https://app.superdesign.dev/) - UI/UX + branding exploration; exports React/HTML/CSS, design tokens, and component specs
-- [Stitch by Google](https://stitch.withgoogle.com/) - prompt/sketch → production UI; generates a full design system (tokens + component library) with exportable specs
 
 **Skills used:**
-- [`frontend-design`](https://github.com/anthropics/anthropic-quickstarts) - Anthropic's base skill for high-quality, accessible UI
 - [`impeccable`](https://github.com/pbakaus/impeccable) - builds on `frontend-design` with 7 domain references (typography, color/contrast, spatial, motion, interaction, responsive, UX writing).
 
 **Key commands:** 
