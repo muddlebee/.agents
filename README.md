@@ -183,7 +183,7 @@ Same job from two angles: turn what just happened into durable memory so the nex
 
 **Long-form capture** (lives in `docs/wiki/`): specs + drift · ADRs · incident post-mortems · stable patterns · skills/MCP reference
 
-**Maintenance model:** Inspired by [Karpathy's LLM Wiki](https://gist.github.com/karpathy/b552e21f2a9a452a50b99a7dc7ce8bb0) — raw sources in `docs/raw/` (immutable), agent processes them into wiki pages; standing rules stay in `AGENTS.md`. Knowledge compounds instead of resetting.
+**Maintenance model:** Inspired by [Karpathy's LLM Wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — raw sources in `docs/raw/` (immutable), agent processes them into wiki pages; standing rules stay in `AGENTS.md`. Knowledge compounds instead of resetting.
 
 
 ---
