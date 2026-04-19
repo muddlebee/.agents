@@ -26,6 +26,7 @@ For language or framework-specific conventions (React, Next.js, Python, etc.), f
 | [GitHub MCP](https://github.com/github/github-mcp-server) | Branches, PRs, issues, labels, PR comments (e.g. preview URL, E2E report) |
 | [Playwright MCP](https://github.com/microsoft/playwright-mcp) | Drive the browser for real flows (pre-commit QA loop on local/preview, full E2E on staging) |
 | [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools) | Console, network, runtime inspection on a live page |
+| [DeepWiki MCP](https://mcp.deepwiki.com/) | AI-indexed documentation for GitHub repos — browse wiki structure, read topic pages, and ask grounded questions so agents orient on upstream or dependency code without a full manual read |
 | **Custom / vendor** | Whatever your repo needs (e.g. Vercel, DB, Slack, company tools) |
 
 
