@@ -45,6 +45,14 @@ Idea → Design → Spec → Code → Review → PR/Issues → CI/CD → E2E + d
 **Tools used:**
 - [Superdesign](https://app.superdesign.dev/) - UI/UX + branding exploration; exports React/HTML/CSS, design tokens, and component specs
 
+  Superdesign replaces single-shot design guesses with fast, parallel exploration on a canvas:
+  - Generate multiple design variants side-by-side rather than committing to one direction
+  - Pull patterns from real, high-quality interfaces and design systems as reference
+  - Auto-derive branding: color palettes, typography, and layout systems
+  - Export directly into an agent/CLI (Cursor, Claude Code) as a prompt to implement in any framework
+
+  Result: idea → multiple design directions → validated UI in a single session.
+
 **Skills used:**
 - [`impeccable`](https://github.com/pbakaus/impeccable) - builds on `frontend-design` with 7 domain references (typography, color/contrast, spatial, motion, interaction, responsive, UX writing).
 
