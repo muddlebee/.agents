@@ -65,9 +65,6 @@ Idea → Design → Spec → Code → Review → PR/Issues → CI/CD → E2E + d
 - [`idea-refine`](https://skills.sh/addyosmani/agent-skills/idea-refine) - clarify problem, constraints, success criteria
 - [`spec-driven-development`](https://skills.sh/addyosmani/agent-skills/spec-driven-development) - produce `SPEC.md` before touching code
 - [`planning-and-task-breakdown`](https://skills.sh/addyosmani/agent-skills/planning-and-task-breakdown) - atomic tasks with definition of done
-- [`documentation-and-adrs`](https://skills.sh/addyosmani/agent-skills/documentation-and-adrs) - log architecture decisions inline at decision time
-- [`context-engineering`](https://skills.sh/addyosmani/agent-skills/context-engineering) - structure context so downstream agents stay coherent
-
 
 
 ### 3) Build
@@ -77,7 +74,6 @@ Idea → Design → Spec → Code → Review → PR/Issues → CI/CD → E2E + d
 **Skills used:**
 - [`incremental-implementation`](https://skills.sh/addyosmani/agent-skills/incremental-implementation) - thin vertical slices, each commit is a working unit
 - [`test-driven-development`](https://skills.sh/addyosmani/agent-skills/test-driven-development) - tests written alongside code, not after
-- [`api-and-interface-design`](https://skills.sh/addyosmani/agent-skills/api-and-interface-design) - contract-first APIs, validated at every boundary
 - [`frontend-ui-engineering`](https://skills.sh/addyosmani/agent-skills/frontend-ui-engineering) - clean component patterns, accessibility baked in
 - Framework/language skill from [skills.sh](https://skills.sh/) - find the relevant one for your stack and reference it in `AGENTS.md`
 
