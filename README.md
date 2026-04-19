@@ -55,7 +55,10 @@ Result: idea → multiple design directions → validated UI in a single session
 **Skills used:**
 - [`impeccable`](https://github.com/pbakaus/impeccable) — builds on `frontend-design` with 7 domain references (typography, color/contrast, spatial, motion, interaction, responsive, UX writing)
 
-**Key commands:** `/critique` (UX review) · `/audit` (performance, accessibility) · `/normalize` (design system alignment)
+**Key commands:**
+- `/critique` (UX review)
+- `/audit` (performance, accessibility)
+- `/normalize` (design system alignment)
 
 
 ---
