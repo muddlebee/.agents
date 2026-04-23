@@ -26,6 +26,7 @@ For language or framework-specific conventions (React, Next.js, Python, etc.), f
 |---|---|
 | [GitHub MCP](https://github.com/github/github-mcp-server) | Branches, PRs, issues, labels, PR comments (e.g. preview URL, E2E report) |
 | [Playwright MCP](https://github.com/microsoft/playwright-mcp) | Drive the browser for real flows (pre-commit QA loop on local/preview, full E2E on staging) |
+| [Agent Browser MCP](https://github.com/minhlucvan/agent-browser-mcp) | Browser automation via [Vercel agent-browser](https://github.com/vercel-labs/agent-browser) (fast Rust CLI): navigation, forms, a11y snapshots, sessions; install CLI + `npx agent-browser-mcp` in Cursor |
 | [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools) | Console, network, runtime inspection on a live page |
 | **Custom / vendor** | Whatever your repo needs (e.g. Vercel, DB, Slack, company tools) |
 
