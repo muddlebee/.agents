@@ -99,10 +99,10 @@ Runs a review pass before anything is staged — CI should never catch what this
 For UI-facing work, this includes a **Playwright QA loop** on local or preview ([Playwright MCP](https://github.com/microsoft/playwright-mcp)): build an inventory from the spec + shipped behavior + PR claims, run a functional then visual pass in one persistent session, and document proof or gaps before committing.
 
 **Skills used:**
-- [`playwright-interactive`](https://github.com/openai/skills/blob/main/skills/.curated/playwright-interactive/SKILL.md) — persistent Playwright session; inventory → functional + visual QA
 - [`code-review-and-quality`](https://skills.sh/addyosmani/agent-skills/code-review-and-quality) — correctness, readability, security, perf, spec alignment
 - [`security-and-hardening`](https://skills.sh/addyosmani/agent-skills/security-and-hardening) — OWASP basics, input validation, no secrets in code
 - [`performance-optimization`](https://skills.sh/addyosmani/agent-skills/performance-optimization) — bundle size, render cost, measure-first
+- [`playwright-interactive`](https://github.com/openai/skills/blob/main/skills/.curated/playwright-interactive/SKILL.md) — persistent Playwright session; inventory → functional + visual QA
 
 
 ---
@@ -114,7 +114,7 @@ Creates the branch, writes the PR description from the spec, and links issues �
 
 **Skills used:**
 - [`git-workflow-and-versioning`](https://skills.sh/addyosmani/agent-skills/git-workflow-and-versioning) — small commits, clean branch naming, trunk-based
-- [awesome-copilot `pr-description`](https://github.com/github/awesome-copilot/tree/main/prompts) — structured title, summary, how-to-test, linked issues
+- [`awesome-copilot-pr-description`](https://github.com/github/awesome-copilot/tree/main/prompts) — structured title, summary, how-to-test, linked issues
 - GitHub MCP — creates branch, opens PR, applies labels, requests reviewers, posts preview URL
 
 **Issue resolution flow:** agent reads open issue via GitHub MCP → generates fix branch → implements fix → opens PR with `fixes #N`.
@@ -131,7 +131,7 @@ Reviews like a staff engineer and enforces quality gates before merge.
 - [`code-review-and-quality`](https://skills.sh/addyosmani/agent-skills/code-review-and-quality) — mandatory pre-merge pass
 - [`security-and-hardening`](https://skills.sh/addyosmani/agent-skills/security-and-hardening) — catches issues at the PR diff level
 - [`debugging-and-error-recovery`](https://skills.sh/addyosmani/agent-skills/debugging-and-error-recovery) — flags risky changes, suggests patches
-- [awesome-copilot PR reviewer agent](https://github.com/github/awesome-copilot/tree/main/agents) — GitHub-native review comments
+- [`awesome-copilot PR reviewer agent`](https://github.com/github/awesome-copilot/tree/main/agents) — GitHub-native review comments
 
 
 ---
@@ -142,7 +142,7 @@ Reviews like a staff engineer and enforces quality gates before merge.
 **Skills used:**
 - [`ci-cd-and-automation`](https://skills.sh/addyosmani/agent-skills/ci-cd-and-automation) — author and maintain workflows, caches, and log-driven fixes
 - [`deploy-to-vercel`](https://skills.sh/vercel-labs/agent-skills/deploy-to-vercel) — linked projects, preview vs production, git-push vs CLI deploy
-- [awesome-copilot `create-github-action-workflow-specification`](https://github.com/github/awesome-copilot/blob/main/skills/create-github-action-workflow-specification/SKILL.md) — formal spec for an existing Actions workflow (good for AI maintenance and onboarding)
+- [`create-github-action-workflow-specification`](https://github.com/github/awesome-copilot/blob/main/skills/create-github-action-workflow-specification/SKILL.md) — formal spec for an existing Actions workflow (good for AI maintenance and onboarding)
 
 
 ---
