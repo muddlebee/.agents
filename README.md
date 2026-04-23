@@ -149,9 +149,9 @@ Reviews like a staff engineer and enforces quality gates before merge.
 ---
 
 ### 8) E2E testing
-**Agent: Runner** ([Playwright MCP](https://github.com/microsoft/playwright-mcp) + [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools))
+**Agent: Runner** ([Playwright MCP](https://github.com/microsoft/playwright-mcp) + [Agent Browser MCP](https://github.com/minhlucvan/agent-browser-mcp) + [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools))
 
-Executes real user flows on the live preview and captures traces, logs, and screenshots.
+Executes real user flows on the live preview and captures traces, logs, and screenshots. Use **Playwright MCP** or **Agent Browser MCP** to drive the browser (both fit pre-commit QA on preview and full E2E on staging); **Chrome DevTools MCP** adds live console and network inspection.
 
 **Skills used:**
 - [`browser-testing-with-devtools`](https://skills.sh/addyosmani/agent-skills/browser-testing-with-devtools) — real browser validation against spec acceptance criteria

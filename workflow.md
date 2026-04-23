@@ -133,8 +133,9 @@ Idea → Design → Spec → Code → Review → PR/Issues → CI/CD → E2E + d
 
 
 ### 8) E2E Testing
-**Agent: Runner** ([Playwright MCP](https://github.com/microsoft/playwright-mcp) + [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools))
+**Agent: Runner** ([Playwright MCP](https://github.com/microsoft/playwright-mcp) + [Agent Browser MCP](https://github.com/minhlucvan/agent-browser-mcp) + [Chrome DevTools MCP](https://github.com/bjesuiter/mcp-chrome-devtools))
 - Executes real user flows on live preview · captures traces, logs, screenshots
+- **Playwright MCP** or **Agent Browser MCP** drives browser automation (pre-commit QA on preview, full E2E on staging); **Chrome DevTools MCP** — live console + network while debugging
 
 **Skills used:**
 - [`browser-testing-with-devtools`](https://skills.sh/addyosmani/agent-skills/browser-testing-with-devtools) - real browser validation against spec acceptance criteria
